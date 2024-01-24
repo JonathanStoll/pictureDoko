@@ -1,10 +1,16 @@
 import React from 'react';
 import {View, Image, StyleSheet} from 'react-native';
 
-const FullScreenImage: React.FC<{imageUrl: string}> = ({imageUrl}) => {
+const Picture: React.FC = () => {
   return (
     <View style={styles.container}>
-      <Image source={{uri: imageUrl}} style={styles.image} resizeMode="cover" />
+      <Image
+        source={{
+          uri: 'https://www.myamericanmarket.com/media/catalog/product/cache/e14a284ad83acfa28068f240695baba3/m/o/mo-nit_1.jpg',
+        }}
+        style={styles.image}
+        resizeMode="cover"
+      />
     </View>
   );
 };
@@ -21,4 +27,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default FullScreenImage;
+export default Picture;

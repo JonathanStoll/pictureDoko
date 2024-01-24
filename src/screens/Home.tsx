@@ -1,11 +1,16 @@
 import React from 'react';
 import {Text, StyleSheet, Pressable, View} from 'react-native';
+import {useNavigation} from '@react-navigation/native';
 
 const Home: React.FC = () => {
+  const navigation = useNavigation();
+  const navigateToImg = () => {
+    navigation.navigate('Picture');
+  };
   return (
     <View style={styles.container}>
       <Text style={styles.text}>Home</Text>
-      <Pressable style={styles.buttonContainer}>
+      <Pressable style={styles.buttonContainer} onPress={navigateToImg}>
         <Text style={styles.buttonText}>Home</Text>
       </Pressable>
     </View>
