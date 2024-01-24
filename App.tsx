@@ -5,11 +5,12 @@
  * @format
  */
 
-import React from 'react';
+import React, {useEffect} from 'react';
 import Home from './src/screens/Home';
 import Picture from './src/screens/Picture';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import SplashScreen from 'react-native-splash-screen';
 
 export type RootStackParamList = {
   Home: undefined;
@@ -18,6 +19,7 @@ export type RootStackParamList = {
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 function App(): React.JSX.Element {
+  useEffect(() => SplashScreen.hide(), []);
   return (
     <NavigationContainer>
       <Stack.Navigator>
