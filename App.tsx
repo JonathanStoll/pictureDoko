@@ -11,10 +11,16 @@ import Picture from './src/screens/Picture';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import SplashScreen from 'react-native-splash-screen';
+export type pictureType = {
+  uri: string;
+  name: string;
+  longitude: string;
+  latitude: string;
+};
 
 export type RootStackParamList = {
   Home: undefined;
-  Picture: {uri: string};
+  Picture: {picture: pictureType};
 };
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
