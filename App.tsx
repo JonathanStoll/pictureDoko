@@ -14,7 +14,7 @@ import SplashScreen from 'react-native-splash-screen';
 
 export type RootStackParamList = {
   Home: undefined;
-  Picture: undefined;
+  Picture: {uri: string};
 };
 const Stack = createNativeStackNavigator<RootStackParamList>();
 

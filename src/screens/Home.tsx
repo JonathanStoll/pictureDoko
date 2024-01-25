@@ -1,17 +1,75 @@
-import React from 'react';
-import {Text, StyleSheet, Pressable, View} from 'react-native';
+import React, {useState} from 'react';
+import {
+  Text,
+  StyleSheet,
+  Pressable,
+  View,
+  PermissionsAndroid,
+  FlatList,
+} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
+import {launchCamera} from 'react-native-image-picker';
+import SmallPicture from '../components/SmallPicture';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import {RootStackParamList} from '../../App';
+export type ImageType = {
+  uri: string;
+  type: string;
+  name: string;
+};
+export type picture = {
+  uri: string;
+  name: string;
+};
 
 const Home: React.FC = () => {
-  const navigation = useNavigation();
-  const navigateToImg = () => {
-    navigation.navigate('Picture');
+  const navigation =
+    useNavigation<NativeStackNavigationProp<RootStackParamList, 'Home'>>();
+  const [pictures, setPictures] = useState<picture[]>();
+  const options = {
+    mediaType: 'photo',
+    title: 'Select Image',
+    maxWidth: 2000,
+    masHeight: 2000,
+    includeExtra: true,
   };
+
+  const navigateToImg = (uri: string) => {
+    navigation.navigate('Picture', {uri});
+  };
+
+  const takePicture = async () => {
+    const granted = await PermissionsAndroid.request(
+      PermissionsAndroid.PERMISSIONS.CAMERA,
+    );
+    if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+      const result = (await launchCamera(options as any)) as {
+        assets: ImageType[];
+      };
+      const newPicture = {
+        uri: result.assets[0].uri,
+        name: result.assets[0].name,
+      };
+      setPictures([...(pictures || []), newPicture]);
+    }
+  };
+
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>Home</Text>
-      <Pressable style={styles.buttonContainer} onPress={navigateToImg}>
-        <Text style={styles.buttonText}>Home</Text>
+      <FlatList
+        data={pictures}
+        renderItem={item => {
+          return (
+            <SmallPicture
+              uri={item.item.uri}
+              onPress={() => navigateToImg(item.item.uri)}
+            />
+          );
+        }}
+        numColumns={3}
+      />
+      <Pressable style={styles.buttonContainer} onPress={takePicture}>
+        <Text style={styles.buttonText}>Take Picture</Text>
       </Pressable>
     </View>
   );
