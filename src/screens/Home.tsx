@@ -6,6 +6,7 @@ import {
   View,
   PermissionsAndroid,
   FlatList,
+  Dimensions,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {launchCamera} from 'react-native-image-picker';
@@ -26,7 +27,7 @@ export type pictureType = {
   longitude: string;
   latitude: string;
 };
-
+const deviceWidth = Dimensions.get('window').width;
 const Home: React.FC = () => {
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList, 'Home'>>();
@@ -98,6 +99,7 @@ const Home: React.FC = () => {
           );
         }}
         numColumns={3}
+        contentContainerStyle={styles.flatListContainer}
       />
       <Pressable style={styles.buttonContainer} onPress={takePicture}>
         <Text style={styles.buttonText}>Take Picture</Text>
@@ -119,7 +121,7 @@ const styles = StyleSheet.create({
   buttonContainer: {
     position: 'absolute',
     bottom: 20,
-    backgroundColor: '#3498db',
+    backgroundColor: '#9eded8',
     padding: 15,
     borderRadius: 8,
     elevation: 3,
@@ -132,6 +134,13 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontWeight: 'bold',
     fontSize: 16,
+  },
+  flatListContainer: {
+    alignItems: 'center',
+    width: deviceWidth,
+    paddingHorizontal: 8,
+    paddingTop: 8,
+    paddingBottom: 100,
   },
 });
 

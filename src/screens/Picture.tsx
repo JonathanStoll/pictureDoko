@@ -38,11 +38,13 @@ const Picture: React.FC = () => {
         style={styles.image}
         resizeMode="cover"
       />
-      {gps ? (
-        <Text>{gps}</Text>
-      ) : (
-        <ActivityIndicator size="small" color="#0000ff" />
-      )}
+      <View style={styles.cityContainer}>
+        {gps ? (
+          <Text style={styles.text}>{gps}</Text>
+        ) : (
+          <ActivityIndicator size="large" color="#9eded8" />
+        )}
+      </View>
     </View>
   );
 };
@@ -55,6 +57,15 @@ const styles = StyleSheet.create({
   image: {
     width: '100%',
     aspectRatio: '0.75',
+  },
+  cityContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginHorizontal: 16,
+  },
+  text: {
+    fontSize: 18,
   },
 });
 

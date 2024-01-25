@@ -1,14 +1,16 @@
 import React from 'react';
-import {Image, Pressable, StyleSheet} from 'react-native';
+import {Image, Pressable, StyleSheet, Dimensions} from 'react-native';
 
 interface CustomImageProps {
   uri: string;
   onPress: () => void;
 }
 
+const deviceWidth = Dimensions.get('window').width;
+
 const SmallPicture: React.FC<CustomImageProps> = ({uri, onPress}) => {
   return (
-    <Pressable onPress={onPress}>
+    <Pressable onPress={onPress} style={styles.container}>
       <Image source={{uri}} style={styles.image} resizeMode="cover" />
     </Pressable>
   );
@@ -16,10 +18,13 @@ const SmallPicture: React.FC<CustomImageProps> = ({uri, onPress}) => {
 
 const styles = StyleSheet.create({
   image: {
-    width: 100,
-    height: 100,
+    width: (deviceWidth - 64) / 3,
+    aspectRatio: 1,
     borderRadius: 5,
-    margin: 5,
+    margin: 8,
+  },
+  container: {
+    elevation: 5,
   },
 });
 
